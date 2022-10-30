@@ -1,6 +1,7 @@
 
 from functions import dicas
 from functions import tentativa
+from functions import opcoes
 import os 
 
 
@@ -18,30 +19,26 @@ def rodada():
 
     while True:
         contagemDica=0
-        contagemLetra=0
 
-        def inicio():
-            print("*"*len(palavraChave))
-            print("Pedir Dica = [x]")
-            print("Tentar Letra = [z]")
-            opcao_XouZ=input("Digite aqui: ")
+        print("*"*len(palavraChave))
+        opcoesDeJogo=opcoes ()
 
-            #dica
-            if opcao_XouZ == "x":
+       #dica
+        if opcoesDeJogo == "x": 
+            if contagemDica < 3:
+                dicas(dica1,dica2,dica3)
+                print("Agora você deve obrigatóriamente tentar uma letra!")
+                tentativa(palavraChave)
+                contagemDica+=1
+            else:
+                print ("As dicas foram esgotadas!")
+                return opcoes()
 
-                if contagemDica < 3:
-                    dicas(dica1,dica2,dica3)
-                    print("Agora você deve obrigatóriamente tentar uma letra!")
-                    tentativa()
-                    contagemDica+=1
-                else:
-                    print ("As dicas foram esgotadas!")
-                    return (inicio)
-
-            #tentativa
-            if opcao_XouZ == "z":
-                tentativa()
-            
+        #tentativa
+        if opcoesDeJogo == "z":
+            tentativa(palavraChave)
+            break
+rodada()
 
                     
 
