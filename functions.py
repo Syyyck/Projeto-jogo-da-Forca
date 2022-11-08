@@ -4,8 +4,8 @@ from time import sleep
 
 def inicioConfig():
 
-    nameDesafiante=input("Digite o nome do desafiante: ")
-    nameCompetidor=input("Digite o nome do competidor: ")
+    nomeDesafiante=input("Digite o nome do desafiante: ")
+    nomeCompetidor=input("Digite o nome do competidor: ")
     apagarSerial()
 
     palavraChave=input("Digite a palavra:")
@@ -14,7 +14,7 @@ def inicioConfig():
     dica2 = input("Digite aqui a segunda dica: ")
     dica3 = input("Digite aqui a terceira dica: ")
     apagarSerial()
-    return palavraChave, dica1, dica2, dica3
+    return palavraChave, dica1, dica2, dica3, nomeCompetidor, nomeDesafiante
 
    
     
@@ -58,11 +58,28 @@ def tentativa(palavraChave,tentativasErradas,palavracodificada):
 
 
 def opcoes():
+    
     print("Pedir Dica = [x]")
     print("Tentar Letra = [z]")
     opcao_XouZ=input("Digite aqui: ")
-    apagarSerial()
     return opcao_XouZ
+
 
 def apagarSerial():
     os.system("cls")
+
+
+def historicoPartidas(palavraChave,desafiante, competidor,ganhador):
+    escreverHist = open("dados_anteriores", "a+")
+    escreverHist.write(f'''Desafiante: {desafiante} -- Competidor: {competidor} 
+    -- Palavra:{palavraChave} -- Ganhador:{ganhador}\n''')
+    escreverHist.close()
+
+    leituraLinha=open("dados_anteriores","r")
+    partidas=leituraLinha.read()
+    leituraLinha.close()
+
+    print('Histótrico de partidas anteriores:')
+    print(partidas)
+    sleep(5)
+    
