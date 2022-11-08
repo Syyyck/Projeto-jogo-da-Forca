@@ -2,52 +2,64 @@
 from functions import *
 import os 
 
-def inicioConfig():
-    tentativasErradas=0
 
-    print("Você deseja iniciar um novo jogo? Sim(1) ou Não(2)")
-    perguntaIniciar=int(input(": "))
-    if perguntaIniciar == 1:
-        
-        '''nameDesafiante=input("Digite o nome do desafiante: ")
-        nameCompetidor=input("Digite o nome do competidor: ")
-        os.system("cls")'''
+def funcaoConst():
+    def inicio():
+        rodada=True
+        contagemDica=1
+        chancesPerdidas=0
 
-        palavraChave=input("Digite a palavra:")
-        '''
-        dica1 = input("Digite aqui a primeira dica: ")
-        dica2 = input("Digite aqui a segunda dica: ")
-        dica3 = input("Digite aqui a terceira dica: ")
-        os.system("cls")'''
+        palavraChave, dica1, dica2, dica3 = inicioConfig()
+        palavraChave=palavraChave.upper()
+        palavraoculta =("#"*(len(palavraChave)))
+                
+        while (rodada):
 
-        print("X"*len(palavraChave))
-        print("Pedir Dica = [x]")
-        print("Tentar Letra = [z]")
-        try:
-            opcao_XouZ=input("Digite aqui: ")# x para dica # z para tentar letra
-        except:
-            print("Digite um valor correto!")
-
-
-        while True:
-            if tentativasErradas < 5:
+             #Verificar Tentativas
+            if chancesPerdidas < 5:
+                opcao=opcoes()
 
                 #tentar letra
-                if opcao_XouZ == "z":
-                    tentativa(palavraChave)
-
+                if opcao == "z":
+                    palavraoculta, chancesPerdidas = tentativa(palavraChave,chancesPerdidas,palavraoculta)
+                    palavraoculta="".join(palavraoculta)
+                    print (palavraoculta)
+                    if palavraoculta == palavraChave:
+                        print("O Compedidor ganhou!")
+                        rodada = False
                 #dica
-                '''if opcao_XouZ == "x": 
-                    dicas(dica1, dica2, dica3)
+                elif opcao == "x": 
                     if contagemDica < 3:
+                        dicas(dica1, dica2, dica3,contagemDica)
                         print("Agora você deve obrigatóriamente tentar uma letra!")
-                        tentativa(palavraChave)
+                        palavraoculta, chancesPerdidas = tentativa(palavraChave,chancesPerdidas,palavraoculta)
                         contagemDica+=1
+                        print (palavraoculta)
                     else:
-                        print ("As dicas foram esgotadas!")'''
-                        
-            else:
-                break
-inicioConfig()
+                        print ("As dicas foram esgotadas!")
+                else:
+                    print("Digite um valor válido")
+                    print("______________")
 
+            else: 
+                apagarSerial()
+                print("Você perdeu!")
+                sleep(0.70)
+                apagarSerial()
+                rodada = False
+
+    print("Deseja iniciar o jogo? Sim(1) Não(2)")
+    exit=input(": " )
+    if exit == "1":
+        inicio()
+    else:
+        print("Volte Sempre!")
+        sleep(0.70)
+        apagarSerial()
+
+while True:
+    sleep(1)
+    funcaoConst()
+            
+        
             
