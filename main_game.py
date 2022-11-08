@@ -50,7 +50,7 @@ def funcaoConst():
 
             else: 
                 apagarSerial()
-                print("Você perdeu!")
+                print("O competidor perdeu!")
                 sleep(0.70)
                 apagarSerial()
                 vencedor=nomeDesafiante
@@ -58,14 +58,21 @@ def funcaoConst():
                 rodada = False
 
     apagarSerial()
-    print("Deseja iniciar o jogo? Sim(1) Não(2)")
-    exit=input(": " )
-    if exit == "1":
+
+    try:
+        print("Deseja iniciar o jogo? Sim(1) Não(2)")
+        exit=int(input(": " ))
+    except: 
+        print("Digite um valor correto!")
+        sleep(0.30)
+        
+    if exit == 1:
         inicio()
-    else:
+    elif exit == 2:
         print("Volte Sempre!")
         sleep(0.70)
         apagarSerial()
+
 
 while True:
     sleep(1)
